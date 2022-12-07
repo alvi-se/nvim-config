@@ -3,6 +3,7 @@ call plug#begin()
 	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/syntastic'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'clangd/coc-clangd'
 call plug#end()
 
 tmap <Esc> <C-\><C-n>
