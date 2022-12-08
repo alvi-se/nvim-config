@@ -2,6 +2,7 @@ call plug#begin()
 	Plug 'tpope/vim-fugitive'
 	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/syntastic'
+    Plug 'tpope/vim-surround'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
