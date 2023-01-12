@@ -4,6 +4,9 @@ call plug#begin()
 	Plug 'scrooloose/syntastic'
     Plug 'tpope/vim-surround'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'raimondi/delimitmate'
+    Plug 'puremourning/vimspector'
+    Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 tmap <Esc> <C-\><C-n>
@@ -19,6 +22,19 @@ set shiftwidth=4
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
+
+" Vimspector
+noremap <Leader>dd :call vimspector#Launch()<CR>
+nnoremap <Leader>de :call vimspector#Reset()<CR>
+nnoremap <Leader>dc :call vimspector#Continue()<CR>
+
+nnoremap <Leader>dt :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <Leader>dT :call vimspector#ClearBreakpoints()<CR>
+
+nmap <Leader>dk <Plug>VimspectorRestart
+nmap <Leader>dh <Plug>VimspectorStepOut
+nmap <Leader>dl <Plug>VimspectorStepInto
+nmap <Leader>dj <Plug>VimspectorStepOver
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
