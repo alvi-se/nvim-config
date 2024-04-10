@@ -1,22 +1,70 @@
+" Basic Language servers
+function! InstallCocPlugins(info)
+    CocInstall coc-pyright
+    CocInstall coc-tsserver
+    CocInstall coc-json
+    CocInstall coc-clangd
+endfunction
+
+" Plugins
 call plug#begin()
 	Plug 'tpope/vim-fugitive'
 	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/syntastic'
     Plug 'tpope/vim-surround'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': function('InstallCocPlugins')}
     Plug 'raimondi/delimitmate'
     Plug 'ryanoasis/vim-devicons'
+    Plug 'vim-airline/vim-airline'
 call plug#end()
 
+" Esc to exit terminal
 tmap <Esc> <C-\><C-n>
+
+" Enable HTML tags auto completion
+" autocmd FileType html
+" set omnifunc=htmlcomplete#CompleteTags
 
 " Numbers on rows
 set nu
+
+
+set scrolloff=10
+
+" Neovide
+set guifont=JetBrainsMono_Nerd_Font:h11
+
+" NERDTree CTRL+n
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" Arrows to switch window
+nnoremap <Up> <C-w>k
+nnoremap <Down> <C-w>j
+nnoremap <Left> <C-w>h
+nnoremap <Right> <C-w>l
+
+" Shift + arrows to increase or reduce window size
+nnoremap <S-Up> <C-w>+
+nnoremap <S-Down> <C-w>-
+nnoremap <S-Right> <C-w>>
+nnoremap <S-Left> <C-w><
+
+" Remap leader key
+let mapleader = " "
+nnoremap <Space> <Nop>
+
+" Leader + t to open terminal and enter insert mode in it
+nnoremap <Leader>t :split<CR><C-w>j :terminal<CR>
+nnoremap <Leader>T :tabnew <Bar> terminal<CR>
+
+" Clipboard is synced with unnamed register
+set clipboard^=unnamed
 
 " Tabs settings
 set expandtab
 set tabstop=4
 set shiftwidth=4
+
 
 " Some servers have issues with backup files, see #649.
 set nobackup
@@ -70,7 +118,9 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call ShowDocumentation()<CR>
+" nnoremap <silent> K :call ShowDocumentation()<CR>
+" Use CTRL+q to show documentation in preview window.
+nnoremap <silent> <C-q> :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
