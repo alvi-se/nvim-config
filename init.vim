@@ -16,7 +16,12 @@ call plug#begin()
     Plug 'raimondi/delimitmate'
     Plug 'ryanoasis/vim-devicons'
     Plug 'vim-airline/vim-airline'
+    Plug 'sonph/onehalf', {'rtp': 'vim'}
+    Plug 'mfussenegger/nvim-dap'
 call plug#end()
+
+colorscheme onehalfdark
+let g:airline_theme='onehalfdark'
 
 " Esc to exit terminal
 tmap <Esc> <C-\><C-n>
