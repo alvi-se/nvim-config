@@ -18,6 +18,7 @@ call plug#begin()
     Plug 'vim-airline/vim-airline'
     Plug 'sonph/onehalf', {'rtp': 'vim'}
     Plug 'mfussenegger/nvim-dap'
+    Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 colorscheme onehalfdark
@@ -59,8 +60,10 @@ let mapleader = " "
 nnoremap <Space> <Nop>
 
 " Leader + t to open terminal and enter insert mode in it
-nnoremap <Leader>t :split<CR><C-w>j :terminal<CR>
-nnoremap <Leader>T :tabnew <Bar> terminal<CR>
+nnoremap <Leader>t :split<CR><C-w>j:terminal<CR>
+nnoremap <Leader>T :tabnew<Bar>terminal<CR>
+
+nnoremap <C-2> 2gt 
 
 " Clipboard is synced with unnamed register
 set clipboard^=unnamed
