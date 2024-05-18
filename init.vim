@@ -43,6 +43,9 @@ set guifont=JetBrainsMono_Nerd_Font:h11
 " NERDTree CTRL+n
 nnoremap <C-n> :NERDTreeToggle<CR>
 
+" Enable powerline fonts
+let g:airline_powerline_fonts = 1
+
 " Arrows to switch window
 nnoremap <Up> <C-w>k
 nnoremap <Down> <C-w>j
