@@ -4,12 +4,14 @@ function! InstallCocPlugins(info)
     CocInstall coc-tsserver
     CocInstall coc-json
     CocInstall coc-clangd
+    CocInstall coc-explorer
 endfunction
 
 " Plugins
 call plug#begin()
-	Plug 'tpope/vim-fugitive'
-	Plug 'scrooloose/nerdtree'
+	Plug 'rbong/vim-flog'
+    Plug 'tpope/vim-fugitive'
+	" Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/syntastic'
     Plug 'tpope/vim-surround'
 	Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': function('InstallCocPlugins')}
@@ -19,6 +21,11 @@ call plug#begin()
     Plug 'sonph/onehalf', {'rtp': 'vim'}
     Plug 'mfussenegger/nvim-dap'
     Plug 'airblade/vim-gitgutter'
+    Plug 'github/copilot.vim'
+    Plug 'ahmedkhalf/project.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    " Needed for Telescope
+    Plug 'nvim-lua/plenary.nvim'
 call plug#end()
 
 colorscheme onehalfdark
@@ -41,7 +48,10 @@ set scrolloff=10
 set guifont=JetBrainsMono_Nerd_Font:h11
 
 " NERDTree CTRL+n
-nnoremap <C-n> :NERDTreeToggle<CR>
+" nnoremap <C-n> :NERDTreeToggle<CR>
+
+" coc-explorer toggle
+nnoremap <C-n> :CocCommand explorer<CR>
 
 " Enable powerline fonts
 let g:airline_powerline_fonts = 1
@@ -236,3 +246,8 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+lua << EOF
+require("project_nvim").setup {
+}
+EOF
