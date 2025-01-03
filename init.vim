@@ -4,7 +4,8 @@ function! InstallCocPlugins(info)
     CocInstall coc-tsserver
     CocInstall coc-json
     CocInstall coc-clangd
-    CocInstall coc-explorer
+    " CocInstall coc-explorer
+    CocInstall coc-emmet
 endfunction
 
 " Plugins
@@ -16,20 +17,34 @@ call plug#begin()
     Plug 'tpope/vim-surround'
 	Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': function('InstallCocPlugins')}
     Plug 'raimondi/delimitmate'
-    Plug 'ryanoasis/vim-devicons'
+    " Plug 'ryanoasis/vim-devicons'
+    Plug 'nvim-tree/nvim-web-devicons'
     Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    " Themes
     Plug 'sonph/onehalf', {'rtp': 'vim'}
+    Plug 'patstockwell/vim-monokai-tasty'
+
     Plug 'mfussenegger/nvim-dap'
     Plug 'airblade/vim-gitgutter'
     Plug 'github/copilot.vim'
     Plug 'ahmedkhalf/project.nvim'
     Plug 'nvim-telescope/telescope.nvim'
-    " Needed for Telescope
+    " Needed for Telescope and neo-tree
     Plug 'nvim-lua/plenary.nvim'
+"    Plug 'rest-nvim/rest.nvim'
+    Plug 'andweeb/presence.nvim'
+    Plug 'lukas-reineke/indent-blankline.nvim'
+    Plug 'romgrk/barbar.nvim'
+
+    Plug 'nvim-neo-tree/neo-tree.nvim'
+    " Needed for neo-tree
+    Plug 'MunifTanjim/nui.nvim'
 call plug#end()
 
-colorscheme onehalfdark
-let g:airline_theme='onehalfdark'
+let g:vim_monokai_tasty_italic = 1
+colorscheme vim-monokai-tasty
+let g:airline_theme='monokai_tasty'
 
 " Esc to exit terminal
 tmap <Esc> <C-\><C-n>
@@ -51,7 +66,8 @@ set guifont=JetBrainsMono_Nerd_Font:h11
 " nnoremap <C-n> :NERDTreeToggle<CR>
 
 " coc-explorer toggle
-nnoremap <C-n> :CocCommand explorer<CR>
+" nnoremap <C-n> :CocCommand explorer<CR>
+nnoremap <C-n> <Cmd>Neotree toggle<CR>
 
 " Enable powerline fonts
 let g:airline_powerline_fonts = 1
@@ -76,17 +92,52 @@ nnoremap <Space> <Nop>
 nnoremap <Leader>t :split<CR><C-w>j:terminal<CR>
 nnoremap <Leader>T :tabnew<Bar>terminal<CR>
 
-nnoremap <C-2> 2gt 
+" CTRL + n to open tab n
+" nnoremap <C-1> 1gt 
+" nnoremap <C-2> 2gt 
+" nnoremap <C-3> 3gt 
+" nnoremap <C-4> 4gt 
+" nnoremap <C-5> 5gt 
+" nnoremap <C-6> 6gt 
+" nnoremap <C-7> 7gt 
+" nnoremap <C-8> 8gt 
+" nnoremap <C-9> 9gt 
+
+" Re-order to previous/next
+nnoremap <silent>    <Leader><Left> <Cmd>BufferMovePrevious<CR>
+nnoremap <silent>    <Leader><Right> <Cmd>BufferMoveNext<CR>
+
+" Goto buffer in position...
+nnoremap <silent>    <Leader>1 <Cmd>BufferGoto 1<CR>
+nnoremap <silent>    <Leader>2 <Cmd>BufferGoto 2<CR>
+nnoremap <silent>    <Leader>3 <Cmd>BufferGoto 3<CR>
+nnoremap <silent>    <Leader>4 <Cmd>BufferGoto 4<CR>
+nnoremap <silent>    <Leader>5 <Cmd>BufferGoto 5<CR>
+nnoremap <silent>    <Leader>6 <Cmd>BufferGoto 6<CR>
+nnoremap <silent>    <Leader>7 <Cmd>BufferGoto 7<CR>
+nnoremap <silent>    <Leader>8 <Cmd>BufferGoto 8<CR>
+nnoremap <silent>    <Leader>9 <Cmd>BufferGoto 9<CR>
+nnoremap <silent>    <Leader>0 <Cmd>BufferLast<CR>
+
+nnoremap <silent>    <Leader>w <Cmd>BufferClose<CR>
+
+
+
+" Find by file name
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+" Find inside files
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 
 " Clipboard is synced with unnamed register
-set clipboard^=unnamed
+set clipboard=unnamedplus
 
 " Tabs settings
 set expandtab
 set tabstop=4
 set shiftwidth=4
 
-
+" coc.nvim config
+"
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
@@ -138,7 +189,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
+" Use CTRL+q to show documentation in preview window.
 " nnoremap <silent> K :call ShowDocumentation()<CR>
 " Use CTRL+q to show documentation in preview window.
 nnoremap <silent> <C-q> :call ShowDocumentation()<CR>
@@ -250,4 +301,6 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 lua << EOF
 require("project_nvim").setup {
 }
+
+require("telescope").load_extension("projects")
 EOF
