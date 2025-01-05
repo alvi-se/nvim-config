@@ -30,17 +30,3 @@ vim.keymap.set("n", "<Leader>T", ":tabnew<Bar>terminal<CR>")
 
 vim.opt.clipboard = "unnamedplus"
 
--- Telescope keybindings
--- local builtin = require('telescope.builtin')
--- vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
--- vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-
-
--- Set theme to Monokai tasty
-vim.g.vim_monokai_tasty_italic = 1
--- vim.cmd("colorscheme vim-monokai-tasty")
--- vim.g.airline_theme = "monokai_tasty"
-
--- Airline
-vim.g.airline_powerline_fonts = 1
-
