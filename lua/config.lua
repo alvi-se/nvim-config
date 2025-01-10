@@ -28,5 +28,9 @@ vim.keymap.set("n", "<Leader>t", ":split<CR><C-W>j:terminal<CR>")
 -- TODO: make it open in another buffertab
 vim.keymap.set("n", "<Leader>T", ":tabnew<Bar>terminal<CR>")
 
+-- Exit terminal with ESC
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+
 vim.opt.clipboard = "unnamedplus"
 

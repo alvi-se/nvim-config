@@ -10,14 +10,14 @@ return {
     { 'nvim-tree/nvim-web-devicons' },
     {
         'vim-airline/vim-airline',
-        init = function(plugin)
+        init = function()
             vim.g.airline_powerline_fonts = 1
         end
     },
     { 'vim-airline/vim-airline-themes' },
     {
         'patstockwell/vim-monokai-tasty',
-        init = function(plugin)
+        init = function()
             -- Set theme to Monokai tasty
             vim.g.vim_monokai_tasty_italic = 1
             vim.cmd("colorscheme vim-monokai-tasty")
@@ -35,7 +35,7 @@ return {
     {
         'nvim-telescope/telescope.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
-        init = function(pluign)
+        init = function()
             -- Telescope keybindings
             local builtin = require('telescope.builtin')
             vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
@@ -45,7 +45,7 @@ return {
     -- Project manager
     {
         'ahmedkhalf/project.nvim',
-        init = function(plugin)
+        init = function()
             -- Using opts doesn't work
             require("project_nvim").setup({})
 
@@ -76,14 +76,14 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
 
-        config = function () 
+        config = function ()
               local configs = require("nvim-treesitter.configs")
 
               configs.setup({
                   ensure_installed = { "c", "lua", "typescript", "rust", "go", "tsx", "dockerfile"},
                   sync_install = false,
                   highlight = { enable = true },
-                  indent = { enable = true },  
+                  indent = { enable = true },
                 })
             end
     },
@@ -98,6 +98,17 @@ return {
             "L3MON4D3/LuaSnip",      -- Snippet engine
             "saadparwaiz1/cmp_luasnip", -- Snippet completion
         },
-    }
+    },
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+          library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          },
+        },
+    },
 }
 
