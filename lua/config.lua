@@ -24,12 +24,47 @@ vim.keymap.set("n", "<S-Down>", "<C-w>-")
 vim.keymap.set("n", "<S-Left>", "<C-w><")
 vim.keymap.set("n", "<S-Right>", "<C-w>>")
 -- Leader + t open terminal and enter insert mode in it
-vim.keymap.set("n", "<Leader>t", ":split<CR><C-W>j:terminal<CR>")
+-- vim.keymap.set("n", "<Leader>t", ":split<CR><C-W>j:terminal<CR>")
 -- TODO: make it open in another buffertab
-vim.keymap.set("n", "<Leader>T", ":tabnew<Bar>terminal<CR>")
+-- vim.keymap.set("n", "<Leader>T", ":tabnew<Bar>terminal<CR>")
 
 -- Exit terminal with ESC
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+-- Close current buffer with Leader w
+-- vim.keymap.set("n", "<Leader>w", ":bdelete %<CR>")
+
+vim.keymap.set("n", "<Leader>w", function()
+    -- Don't do anything if the buffer is unsaved
+    if vim.bo.modified then
+        print("Buffer is unsaved")
+        return
+    end
+
+    local to_close = vim.api.nvim_get_current_buf()
+    if #vim.api.nvim_list_bufs() == 1 then
+        -- Only one empty buffer: we don't need to do anything
+        if to_close == "" then
+            return
+        else
+            vim.cmd("enew")
+            vim.api.nvim_buf_delete(to_close, { force = false })
+        end
+    else
+        vim.cmd("bprev")
+        vim.api.nvim_buf_delete(to_close, { force = false })
+    end
+end, { silent = true })
+
+
+for i = 1, 9 do
+  vim.keymap.set("n", "<Leader>" .. i, function()
+    vim.cmd("BufferLineGoToBuffer " .. i)
+  end, { silent = true })
+end
+vim.keymap.set("n", "<Leader>0", function ()
+    vim.cmd("BufferLineGoToBuffer 0")
+end, { silent = true })
 
 
 vim.opt.clipboard = "unnamedplus"

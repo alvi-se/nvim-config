@@ -11,7 +11,7 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 
 require("mason-lspconfig").setup({
     automatic_installation = false,
-    ensure_installed = {"lua_ls", "ts_ls", "pyright"},
+    ensure_installed = {"lua_ls", "biome", "pyright", "clangd", "rust_analyzer", "yamlls", "gopls", "jdtls"},
     handlers = {
         function (server_name)
             require("lspconfig")[server_name].setup({})
@@ -19,6 +19,31 @@ require("mason-lspconfig").setup({
     }
 })
 
+
+-- To configure GitHub Copilot
+require('copilot').setup({
+  suggestion = {enabled = false},
+  panel = {enabled = false},
+})
+
+
+require('copilot_cmp').setup()
+
+local luasnip = require("luasnip")
+
+local has_words_before = function()
+
+    -- Sometimes it doesn't work, by now I will use the deprecated function
+    -- if vim.api.nvim_get_option_value("buftype", {buffer = 0}) == "prompt" then
+    --     return false
+    -- end
+    -- Deprecated
+    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+end
+
+-- Code completion with cmp
 local cmp = require("cmp")
 cmp.setup({
     snippet = {
@@ -36,9 +61,44 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                if luasnip.expandable() then
+                    luasnip.expand()
+                else
+                    cmp.confirm({
+                        select = true,
+                        behavior = cmp.ConfirmBehavior.Replace,
+                    })
+                end
+            else
+                fallback()
+            end
+        end),
+        
+        ["<Tab>"] = vim.schedule_wrap(function(fallback)
+            if cmp.visible() and has_words_before() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            elseif luasnip.locally_jumpable(1) then
+                luasnip.jump(1)
+            else
+                fallback()
+            end
+        end),
+
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
+        -- GitHub Copilot
+        { name = 'copilot' },
         { name = 'nvim_lsp' },
         -- { name = 'vsnip' }, -- For vsnip users.
         { name = 'luasnip' }, -- For luasnip users.
@@ -48,10 +108,32 @@ cmp.setup({
         {
             name = "lazydev",
             group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-        }
+        },
     }, {
         { name = 'buffer' },
-    })
+    }),
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            -- Needed to make copilot suggestions appear first
+            require("copilot_cmp.comparators").prioritize,
+
+            -- Below is the default comparitor list and order for nvim-cmp
+            cmp.config.compare.offset,
+            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        }
+    },
+    experimental = {
+        ghost_text = true,
+    }
 })
 
 

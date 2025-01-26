@@ -3,10 +3,7 @@ return {
     { 'tpope/vim-fugitive' },
     { 'tpope/vim-surround' },
     -- Auto close pairs
-    {
-        "windwp/nvim-autopairs",
-        opts = {}
-    },
+    { "windwp/nvim-autopairs", opts = {}},
     { 'nvim-tree/nvim-web-devicons' },
     {
         'vim-airline/vim-airline',
@@ -29,8 +26,6 @@ return {
     -- { 'airblade/vim-gitgutter' },
     -- Git signs in editor
     { "lewis6991/gitsigns.nvim", opts = {} },
-    -- GitHub Copilot
-    { 'github/copilot.vim' },
     -- File search
     {
         'nvim-telescope/telescope.nvim',
@@ -53,7 +48,7 @@ return {
         end
     },
     -- Discord rich presence
-    { 'andweeb/presence.nvim' },
+    { 'andweeb/presence.nvim', opts = {} },
     {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
     {
         'nvim-neo-tree/neo-tree.nvim',
@@ -110,5 +105,22 @@ return {
           },
         },
     },
+    {
+        "akinsho/bufferline.nvim",
+        version = "*",
+        dependencies = "nvim-tree/nvim-web-devicons",
+        opts = {
+            options = {
+                diagnostics = "nvim_lsp"
+            }
+        }
+    },
+    -- GitHub Copilot
+    { "zbirenbaum/copilot.lua" },
+    { "zbirenbaum/copilot-cmp" },
+    {
+        "akinsho/toggleterm.nvim",
+        version = "*",
+    }
 }
 
