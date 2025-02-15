@@ -11,7 +11,8 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 
 require("mason-lspconfig").setup({
     automatic_installation = false,
-    ensure_installed = {"lua_ls", "biome", "pyright", "clangd", "rust_analyzer", "yamlls", "gopls", "jdtls"},
+--    ensure_installed = {"lua_ls", "biome", "pyright", "clangd", "rust_analyzer", "yamlls", "gopls", "jdtls"},
+    ensure_installed = {"lua_ls", "yamlls"},
     handlers = {
         function (server_name)
             require("lspconfig")[server_name].setup({})
