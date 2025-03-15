@@ -72,14 +72,15 @@ return {
         build = ":TSUpdate",
 
         config = function ()
-              local configs = require("nvim-treesitter.configs")
+            local configs = require("nvim-treesitter.configs")
 
-              configs.setup({
-                  ensure_installed = { "c", "lua", "typescript", "rust", "go", "tsx", "dockerfile"},
-                  sync_install = false,
-                  highlight = { enable = true },
-                  indent = { enable = true },
-                })
+            configs.setup({
+                ensure_installed = { "c", "lua", "typescript", "rust", "go", "tsx", "dockerfile"},
+                sync_install = false,
+                highlight = { enable = true },
+                indent = { enable = true },
+                auto_install = true
+            })
             end
     },
     -- Code completion
@@ -118,6 +119,8 @@ return {
     -- GitHub Copilot
     { "zbirenbaum/copilot.lua" },
     { "zbirenbaum/copilot-cmp" },
+
+    -- Better terminal
     {
         "akinsho/toggleterm.nvim",
         version = "*",

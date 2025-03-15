@@ -4,17 +4,38 @@ require("mason").setup()
 -- This should be executed before you configure any language server
 local lspconfig_defaults = require('lspconfig').util.default_config
 lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-  'force',
-  lspconfig_defaults.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
+    'force',
+    lspconfig_defaults.capabilities,
+    require('cmp_nvim_lsp').default_capabilities()
 )
+
+-- This is where you enable features that only work
+-- if there is a language server active in the file
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP actions',
+    callback = function(event)
+        local opts = { buffer = event.buf }
+
+        vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+        vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+        vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+        vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+        vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+        vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+        vim.keymap.set('i', '<C-q>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+        vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+        vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+        vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    end,
+})
+
 
 require("mason-lspconfig").setup({
     automatic_installation = false,
---    ensure_installed = {"lua_ls", "biome", "pyright", "clangd", "rust_analyzer", "yamlls", "gopls", "jdtls"},
     ensure_installed = {"lua_ls", "yamlls"},
     handlers = {
-        function (server_name)
+        function(server_name)
             require("lspconfig")[server_name].setup({})
         end,
     }
@@ -23,8 +44,8 @@ require("mason-lspconfig").setup({
 
 -- To configure GitHub Copilot
 require('copilot').setup({
-  suggestion = {enabled = false},
-  panel = {enabled = false},
+    suggestion = { enabled = false },
+    panel = { enabled = false },
 })
 
 
@@ -33,7 +54,6 @@ require('copilot_cmp').setup()
 local luasnip = require("luasnip")
 
 local has_words_before = function()
-
     -- Sometimes it doesn't work, by now I will use the deprecated function
     -- if vim.api.nvim_get_option_value("buftype", {buffer = 0}) == "prompt" then
     --     return false
@@ -41,7 +61,7 @@ local has_words_before = function()
     -- Deprecated
     if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+    return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
 
 -- Code completion with cmp
@@ -76,7 +96,7 @@ cmp.setup({
                 fallback()
             end
         end),
-        
+
         ["<Tab>"] = vim.schedule_wrap(function(fallback)
             if cmp.visible() and has_words_before() then
                 cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
@@ -88,13 +108,13 @@ cmp.setup({
         end),
 
         ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
         end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
@@ -147,7 +167,7 @@ cmp.setup({
     { name = 'buffer' },
   })
 )
-equire("cmp_git").setup() ]]-- 
+require("cmp_git").setup() ]] --
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
@@ -174,4 +194,3 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Reserve a space in the gutter
 -- This will avoid an annoying layout shift in the screen
 vim.opt.signcolumn = 'yes'
-
