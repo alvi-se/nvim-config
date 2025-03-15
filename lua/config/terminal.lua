@@ -23,7 +23,6 @@ local btop = Terminal:new({
     cmd = "btop",
     hidden = true,
     direction = "float",
-    
 })
 
 vim.keymap.set("n", "<leader>b", function()

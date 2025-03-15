@@ -8,7 +8,7 @@ vim.opt.shiftwidth = 4
 
 -- Map leader and localleader
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = " "
 
 
 -- Toggle Neo-tree
@@ -69,3 +69,5 @@ end, { silent = true })
 
 vim.opt.clipboard = "unnamedplus"
 
+-- Enable railgun for Neovide
+vim.g.neovide_cursor_vfx_mode = "railgun"
