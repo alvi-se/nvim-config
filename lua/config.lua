@@ -57,6 +57,19 @@ vim.keymap.set("n", "<Leader>w", function()
 end, { silent = true })
 
 
+
+-- We need this variable to keep track of the relative number setting
+-- We also enable it by default
+local relative_number = true
+vim.opt.relativenumber = relative_number
+
+-- Toggle relative numbers with Leader r
+vim.keymap.set("n", "<Leader>r", function ()
+    relative_number = not relative_number
+    vim.opt.relativenumber = relative_number
+end)
+
+
 for i = 1, 9 do
   vim.keymap.set("n", "<Leader>" .. i, function()
     vim.cmd("BufferLineGoToBuffer " .. i)
