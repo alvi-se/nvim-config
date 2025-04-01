@@ -3,13 +3,12 @@ return {
     { 'tpope/vim-fugitive' },
     { 'tpope/vim-surround' },
     -- Auto close pairs
-    { "windwp/nvim-autopairs", opts = {}},
+    { "windwp/nvim-autopairs",      opts = {} },
     { 'nvim-tree/nvim-web-devicons' },
     {
-        'vim-airline/vim-airline',
-        init = function()
-            vim.g.airline_powerline_fonts = 1
-        end
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        opts = {}
     },
     { 'vim-airline/vim-airline-themes' },
     {
@@ -25,7 +24,7 @@ return {
     { 'mfussenegger/nvim-dap' },
     -- { 'airblade/vim-gitgutter' },
     -- Git signs in editor
-    { "lewis6991/gitsigns.nvim", opts = {} },
+    { "lewis6991/gitsigns.nvim",       opts = {} },
     -- File search
     {
         'nvim-telescope/telescope.nvim',
@@ -48,8 +47,8 @@ return {
         end
     },
     -- Discord rich presence
-    { 'andweeb/presence.nvim', opts = {} },
-    {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
+    { 'andweeb/presence.nvim',   opts = {} },
+    { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
     {
         'nvim-neo-tree/neo-tree.nvim',
         dependencies = {
@@ -71,27 +70,27 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
 
-        config = function ()
+        config = function()
             local configs = require("nvim-treesitter.configs")
 
             configs.setup({
-                ensure_installed = { "c", "lua", "typescript", "rust", "go", "tsx", "dockerfile"},
+                ensure_installed = { "c", "lua", "typescript", "rust", "go", "tsx", "dockerfile" },
                 sync_install = false,
                 highlight = { enable = true },
                 indent = { enable = true },
                 auto_install = true
             })
-            end
+        end
     },
     -- Code completion
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",  -- LSP source
-            "hrsh7th/cmp-buffer",    -- Buffer source
-            "hrsh7th/cmp-path",      -- Path source
-            "hrsh7th/cmp-cmdline",   -- Cmdline source
-            "L3MON4D3/LuaSnip",      -- Snippet engine
+            "hrsh7th/cmp-nvim-lsp",     -- LSP source
+            "hrsh7th/cmp-buffer",       -- Buffer source
+            "hrsh7th/cmp-path",         -- Path source
+            "hrsh7th/cmp-cmdline",      -- Cmdline source
+            "L3MON4D3/LuaSnip",         -- Snippet engine
             "saadparwaiz1/cmp_luasnip", -- Snippet completion
         },
     },
@@ -99,11 +98,11 @@ return {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
         opts = {
-          library = {
-            -- See the configuration section for more details
-            -- Load luvit types when the `vim.uv` word is found
-            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-          },
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
         },
     },
     {
@@ -124,6 +123,12 @@ return {
     {
         "akinsho/toggleterm.nvim",
         version = "*",
-    }
+    },
+    -- Dashboard
+    {
+        'goolord/alpha-nvim',
+        config = function()
+            require('alpha').setup(require 'alpha.themes.dashboard'.config)
+        end
+    },
 }
-
