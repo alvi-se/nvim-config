@@ -28,8 +28,8 @@ vim.keymap.set("n", "<S-Right>", "<C-w>>")
 -- TODO: make it open in another buffertab
 -- vim.keymap.set("n", "<Leader>T", ":tabnew<Bar>terminal<CR>")
 
--- Exit terminal with ESC
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+-- Exit terminal with CTRL + q
+vim.keymap.set("t", "<C-q>", "<C-\\><C-n>")
 
 -- Close current buffer with Leader w
 -- vim.keymap.set("n", "<Leader>w", ":bdelete %<CR>")
