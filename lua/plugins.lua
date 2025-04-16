@@ -1,4 +1,13 @@
 return {
+    {
+        "scottmckendry/cyberdream.nvim",
+        lazy = false,
+        priority = 1000,
+        init = function()
+            -- Load the colorscheme here
+            vim.cmd('colorscheme cyberdream')
+        end,
+    },
     { 'rbong/vim-flog' },
     { 'tpope/vim-fugitive' },
     { 'tpope/vim-surround' },
@@ -11,15 +20,6 @@ return {
         opts = {}
     },
     { 'vim-airline/vim-airline-themes' },
-    {
-        'patstockwell/vim-monokai-tasty',
-        init = function()
-            -- Set theme to Monokai tasty
-            vim.g.vim_monokai_tasty_italic = 1
-            vim.cmd("colorscheme vim-monokai-tasty")
-            vim.g.airline_theme = "monokai_tasty"
-        end
-    },
     -- Debugger
     { 'mfussenegger/nvim-dap' },
     -- { 'airblade/vim-gitgutter' },
