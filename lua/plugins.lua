@@ -28,22 +28,26 @@ return {
     -- File search
     {
         'nvim-telescope/telescope.nvim',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-        init = function()
+        dependencies = {
+            'nvim-lua/plenary.nvim' ,
+            'nvim-telescope/telescope-frecency.nvim',
+            -- Project manager
+            'ahmedkhalf/project.nvim'
+        },
+        config = function()
             -- Telescope keybindings
             local builtin = require('telescope.builtin')
+
             vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
             vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-        end
-    },
-    -- Project manager
-    {
-        'ahmedkhalf/project.nvim',
-        init = function()
-            -- Using opts doesn't work
-            require("project_nvim").setup({})
+            vim.keymap.set('n', '<leader>fr', ':Telescope frecency<CR>', { desc = 'Telescope frecency' })
 
+            -- Load project_nvim
+            require("project_nvim").setup({})
             require("telescope").load_extension("projects")
+
+            -- Load frecency
+            require("telescope").load_extension("frecency")
         end
     },
     -- Discord rich presence
