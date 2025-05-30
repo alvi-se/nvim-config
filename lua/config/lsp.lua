@@ -221,3 +221,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Reserve a space in the gutter
 -- This will avoid an annoying layout shift in the screen
 vim.opt.signcolumn = 'yes'
+vim.diagnostic.config({
+    virtual_text = true
+})
