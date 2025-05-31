@@ -82,5 +82,3 @@ end, { silent = true })
 
 vim.opt.clipboard = "unnamedplus"
 
--- Enable railgun for Neovide
-vim.g.neovide_cursor_vfx_mode = "railgun"
