@@ -12,7 +12,13 @@ return {
     { 'tpope/vim-fugitive' },
     { 'tpope/vim-surround' },
     -- Auto close pairs
-    { "windwp/nvim-autopairs",      opts = {} },
+    {
+        "windwp/nvim-autopairs",
+        opts = {
+            check_ts = true
+        }
+    },
+    { "windwp/nvim-ts-autotag",     opts = {} },
     { 'nvim-tree/nvim-web-devicons' },
     {
         'nvim-lualine/lualine.nvim',
@@ -29,7 +35,7 @@ return {
     {
         'nvim-telescope/telescope.nvim',
         dependencies = {
-            'nvim-lua/plenary.nvim' ,
+            'nvim-lua/plenary.nvim',
             'nvim-telescope/telescope-frecency.nvim',
             -- Project manager
             'ahmedkhalf/project.nvim'
