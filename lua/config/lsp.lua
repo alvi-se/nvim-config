@@ -32,40 +32,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 
 require("mason-lspconfig").setup({
-    automatic_installation = false,
+    automatic_enable = true,
     ensure_installed = { "lua_ls", "yamlls" },
-    handlers = {
-        function(server_name)
-            require("lspconfig")[server_name].setup({})
-        end,
+})
 
-        solidity = function()
-            local lspconfig = require("lspconfig")
-            lspconfig.solidity.setup({
-                default_config = {
-                    cmd = { 'nomicfoundation-solidity-language-server', '--stdio' },
-                    filetypes = { 'solidity' },
-                    -- This is deprecated
-                    -- root_dir = lspconfig.util.find_git_ancestor,
-                    root_dir = function ()
-                        return vim.fs.find({ '.git' }, { upward = true })[1]
-                    end,
-                    single_file_support = true,
-                },
-            })
-        end,
 
-        sqlls = function()
-            local lspconfig = require("lspconfig")
-            lspconfig.sqlls.setup({
-                default_config = {
-                    cmd = { 'sql-language-server', 'up', '--method', 'stdio' },
-                    filetypes = { 'sql' },
-                    single_file_support = true,
-                },
-            })
-        end
-    }
 })
 
 
