@@ -28,3 +28,14 @@ local btop = Terminal:new({
 vim.keymap.set("n", "<leader>b", function()
     btop:toggle()
 end, { silent = true })
+
+local lazydocker = Terminal:new({
+    cmd = "lazydocker",
+    display_name = "Lazydocker",
+    hidden = true,
+    direction = "float",
+})
+
+vim.keymap.set("n", "<leader>d", function()
+    lazydocker:toggle()
+end, { silent = true })
