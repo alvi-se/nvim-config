@@ -2,7 +2,19 @@ require("toggleterm").setup({
     open_mapping = [[<Leader>t]],
     insert_mappings = false,
     terminal_mappings = false,
-    shade_terminals = true,
+    shade_terminals = false,
+    autochdir = true,
+    highlights = {
+        Normal = {
+            guibg = '#0f1012'
+        },
+        NormalFloat = {
+            guibg = '#0f1012'
+        },
+        FloatBorder = {
+            guibg = '#0f1012'
+        },
+    }
 })
 
 
@@ -27,4 +39,15 @@ local btop = Terminal:new({
 
 vim.keymap.set("n", "<leader>b", function()
     btop:toggle()
+end, { silent = true })
+
+local lazydocker = Terminal:new({
+    cmd = "lazydocker",
+    display_name = "Lazydocker",
+    hidden = true,
+    direction = "float",
+})
+
+vim.keymap.set("n", "<leader>d", function()
+    lazydocker:toggle()
 end, { silent = true })
