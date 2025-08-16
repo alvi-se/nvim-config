@@ -141,4 +141,6 @@ return {
             require('alpha').setup(require 'alpha.themes.dashboard'.config)
         end
     },
+    -- Helm filetype detection for the LSP
+    { "qvalentin/helm-ls.nvim", ft = "helm" }
 }

@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 require("mason-lspconfig").setup({
     automatic_enable = true,
-    ensure_installed = { "lua_ls", "yamlls" },
+    ensure_installed = { "lua_ls", "yamlls", "helm_ls" },
 })
 
 
