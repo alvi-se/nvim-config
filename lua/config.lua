@@ -74,5 +74,6 @@ vim.keymap.set("n", "<Leader>r", function ()
     vim.opt.relativenumber = relative_number
 end)
 
+-- Sync clipboard with plus registry
 vim.opt.clipboard = "unnamedplus"
 

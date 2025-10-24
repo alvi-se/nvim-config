@@ -8,8 +8,10 @@ return {
             vim.cmd('colorscheme cyberdream')
         end,
     },
-    { 'rbong/vim-flog' },
+	-- Git wrapper
     { 'tpope/vim-fugitive' },
+	-- Git graph
+    { 'rbong/vim-flog' },
     { 'tpope/vim-surround' },
     -- Auto close pairs
     {
@@ -109,17 +111,12 @@ return {
         end
     },
     -- Code completion
-    {
-        "hrsh7th/nvim-cmp",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",     -- LSP source
-            "hrsh7th/cmp-buffer",       -- Buffer source
-            "hrsh7th/cmp-path",         -- Path source
-            "hrsh7th/cmp-cmdline",      -- Cmdline source
-            "L3MON4D3/LuaSnip",         -- Snippet engine
-            "saadparwaiz1/cmp_luasnip", -- Snippet completion
-        },
-    },
+	{
+		'saghen/blink.cmp',
+		version = '1.*',
+		-- optional: provides snippets for the snippet source
+		dependencies = { 'rafamadriz/friendly-snippets' },
+	},
     {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
@@ -143,8 +140,6 @@ return {
     },
     -- GitHub Copilot
     { "zbirenbaum/copilot.lua" },
-    { "zbirenbaum/copilot-cmp" },
-
     -- Better terminal
     {
         "akinsho/toggleterm.nvim",
