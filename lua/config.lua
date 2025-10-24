@@ -1,7 +1,6 @@
 vim.opt.number = true
 vim.opt.scrolloff = 10
 vim.opt.guifont = "JetBrainsMono_Nerd_Font:h11"
-vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
@@ -10,6 +9,12 @@ vim.opt.shiftwidth = 4
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+
+local function toggle_space_indent()
+    vim.opt.expandtab = not vim.opt.expandtab:get()
+end
+
+vim.keymap.set("n", "<Leader>s", toggle_space_indent)
 
 -- Toggle Neo-tree
 vim.keymap.set("n", "<C-n>", "<Cmd> Neotree toggle<CR>")

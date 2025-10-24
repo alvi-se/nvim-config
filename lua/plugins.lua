@@ -23,7 +23,23 @@ return {
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        opts = {}
+		opts = {
+			sections = {
+				lualine_x = {
+					'encoding',
+					function ()
+						if vim.opt.expandtab:get() then
+							return [[󱁐 spaces]]
+						else
+							
+							return [[ tabs]]
+						end
+					end,
+					'fileformat',
+					'filetype'
+				},
+			  },
+		}
     },
     { 'vim-airline/vim-airline-themes' },
     -- Debugger
