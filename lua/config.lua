@@ -74,16 +74,5 @@ vim.keymap.set("n", "<Leader>r", function ()
     vim.opt.relativenumber = relative_number
 end)
 
-
-for i = 1, 9 do
-  vim.keymap.set("n", "<Leader>" .. i, function()
-    vim.cmd("BufferLineGoToBuffer " .. i)
-  end, { silent = true })
-end
-vim.keymap.set("n", "<Leader>0", function ()
-    vim.cmd("BufferLineGoToBuffer 0")
-end, { silent = true })
-
-
 vim.opt.clipboard = "unnamedplus"
 
