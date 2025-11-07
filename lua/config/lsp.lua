@@ -53,7 +53,7 @@ vim.lsp.config('ts_ls', {
 require('copilot').setup({})
 
 require('blink.cmp').setup({
-	keymap = { preset = 'default' }
+	keymap = { preset = 'enter' }
 })
 
 
