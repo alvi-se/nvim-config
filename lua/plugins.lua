@@ -31,10 +31,10 @@ return {
 					'encoding',
 					function ()
 						if vim.opt.expandtab:get() then
-							return [[󱁐 spaces]]
+							return '󱁐 ' .. vim.opt.shiftwidth:get()  .. ' spaces'
 						else
 							
-							return [[ tabs]]
+							return ' tabs'
 						end
 					end,
 					'fileformat',
