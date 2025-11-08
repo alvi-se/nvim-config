@@ -4,14 +4,12 @@ vim.opt.guifont = "JetBrainsMono_Nerd_Font:h11"
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
-
 -- Map leader and localleader
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-
 local function toggle_space_indent()
-    vim.opt.expandtab = not vim.opt.expandtab:get()
+	vim.opt.expandtab = not vim.opt.expandtab:get()
 end
 
 vim.keymap.set("n", "<Leader>s", toggle_space_indent)
@@ -40,28 +38,26 @@ vim.keymap.set("t", "<C-q>", "<C-\\><C-n>")
 -- vim.keymap.set("n", "<Leader>w", ":bdelete %<CR>")
 
 vim.keymap.set("n", "<Leader>w", function()
-    -- Don't do anything if the buffer is unsaved
-    if vim.bo.modified then
-        print("Buffer is unsaved")
-        return
-    end
+	-- Don't do anything if the buffer is unsaved
+	if vim.bo.modified then
+		print("Buffer is unsaved")
+		return
+	end
 
-    local to_close = vim.api.nvim_get_current_buf()
-    if #vim.api.nvim_list_bufs() == 1 then
-        -- Only one empty buffer: we don't need to do anything
-        if to_close == "" then
-            return
-        else
-            vim.cmd("enew")
-            vim.api.nvim_buf_delete(to_close, { force = false })
-        end
-    else
-        vim.cmd("bprev")
-        vim.api.nvim_buf_delete(to_close, { force = false })
-    end
+	local to_close = vim.api.nvim_get_current_buf()
+	if #vim.api.nvim_list_bufs() == 1 then
+		-- Only one empty buffer: we don't need to do anything
+		if to_close == "" then
+			return
+		else
+			vim.cmd("enew")
+			vim.api.nvim_buf_delete(to_close, { force = false })
+		end
+	else
+		vim.cmd("bprev")
+		vim.api.nvim_buf_delete(to_close, { force = false })
+	end
 end, { silent = true })
-
-
 
 -- We need this variable to keep track of the relative number setting
 -- We also enable it by default
@@ -69,11 +65,10 @@ local relative_number = true
 vim.opt.relativenumber = relative_number
 
 -- Toggle relative numbers with Leader r
-vim.keymap.set("n", "<Leader>r", function ()
-    relative_number = not relative_number
-    vim.opt.relativenumber = relative_number
+vim.keymap.set("n", "<Leader>r", function()
+	relative_number = not relative_number
+	vim.opt.relativenumber = relative_number
 end)
 
 -- Sync clipboard with plus registry
 vim.opt.clipboard = "unnamedplus"
-
