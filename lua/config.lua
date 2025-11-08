@@ -32,12 +32,12 @@ vim.keymap.set("n", "<S-Right>", "<C-w>>")
 -- vim.keymap.set("n", "<Leader>T", ":tabnew<Bar>terminal<CR>")
 
 -- Exit terminal with CTRL + q
-vim.keymap.set("t", "<C-q>", "<C-\\><C-n>")
+vim.keymap.set("t", "<M-q>", "<C-\\><C-n>")
 
 -- Close current buffer with Leader w
 -- vim.keymap.set("n", "<Leader>w", ":bdelete %<CR>")
 
-vim.keymap.set("n", "<Leader>w", function()
+vim.keymap.set("n", "<M-w>", function()
 	-- Don't do anything if the buffer is unsaved
 	if vim.bo.modified then
 		print("Buffer is unsaved")
