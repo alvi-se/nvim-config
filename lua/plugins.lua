@@ -87,7 +87,10 @@ return {
 	-- Easily configure LSP
 	{ "neovim/nvim-lspconfig" },
 	-- Mason, for managing 3rd party tools (LSP, DAP, linters, formatters)
-	{ "williamboman/mason.nvim" },
+	{
+		"williamboman/mason.nvim",
+		opts = {},
+	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		dependencies = "williamboman/mason-lspconfig.nvim",
