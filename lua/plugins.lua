@@ -1,4 +1,3 @@
-local keymap = require("vim.keymap")
 return {
 	{
 		"scottmckendry/cyberdream.nvim",
@@ -9,10 +8,6 @@ return {
 			vim.cmd("colorscheme cyberdream")
 		end,
 	},
-	-- Git wrapper
-	{ "tpope/vim-fugitive" },
-	-- Git graph
-	{ "rbong/vim-flog" },
 	{ "tpope/vim-surround" },
 	-- Auto close pairs
 	{
@@ -22,7 +17,6 @@ return {
 		},
 	},
 	{ "windwp/nvim-ts-autotag", opts = {} },
-	{ "nvim-tree/nvim-web-devicons" },
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -43,7 +37,6 @@ return {
 			},
 		},
 	},
-	{ "vim-airline/vim-airline-themes" },
 	-- Debugger
 	{
 		"mfussenegger/nvim-dap",
@@ -74,13 +67,13 @@ return {
 				"<leader>ds",
 				function()
 					require("dap").step_over()
-				end
+				end,
 			},
 			{
 				"<leader>dS",
 				function()
 					require("dap").step_into()
-				end
+				end,
 			},
 			{
 				"<leader>dT",
@@ -135,22 +128,34 @@ return {
 		"akinsho/bufferline.nvim",
 		version = "*",
 		dependencies = "nvim-tree/nvim-web-devicons",
+		opts = {
+			options = {
+				diagnostics = "nvim_lsp",
+			},
+		},
 		init = function()
-				local bufferline = require("bufferline")
-				-- Set Alt+x keybinding to view tab x
-				for i = 0, 9 do
-					vim.keymap.set("n", "<M-" .. i ..">", function()
-						vim.cmd("BufferLineGoToBuffer " .. i)
-						bufferline.go_to(i)
-					end, { silent = true })
-				end
-		end
+			local bufferline = require("bufferline")
+			-- Set Alt+x keybinding to view tab x
+			for i = 0, 9 do
+				vim.keymap.set("n", "<M-" .. i .. ">", function()
+					vim.cmd("BufferLineGoToBuffer " .. i)
+					bufferline.go_to(i)
+				end, { silent = true })
+			end
+		end,
 	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",
+		},
+		keys = {
+			{
+				"<C-n>",
+				"<Cmd>Neotree toggle<CR>",
+				desc = "Toggle Neo-tree",
+			},
 		},
 	},
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
@@ -197,16 +202,6 @@ return {
 				-- See the configuration section for more details
 				-- Load luvit types when the `vim.uv` word is found
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-			},
-		},
-	},
-	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		opts = {
-			options = {
-				diagnostics = "nvim_lsp",
 			},
 		},
 	},
