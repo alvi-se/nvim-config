@@ -45,9 +45,6 @@ vim.lsp.config("ts_ls", {
 	},
 })
 
--- To configure GitHub Copilot
-require("copilot").setup({})
-
 require("blink.cmp").setup({
 	keymap = { preset = "enter" },
 })

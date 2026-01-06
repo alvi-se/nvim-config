@@ -86,6 +86,7 @@ return {
 	},
 	{
 		"jay-babu/mason-nvim-dap.nvim",
+		lazy = true,
 		dependencies = {
 			"mfussenegger/nvim-dap",
 			"williamboman/mason.nvim",
@@ -93,31 +94,24 @@ return {
 	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
+		lazy = true,
 	},
-	-- { 'airblade/vim-gitgutter' },
 	-- Git signs in editor
 	{ "lewis6991/gitsigns.nvim", opts = {} },
 	-- File search
 	{
 		"nvim-telescope/telescope.nvim",
+		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-frecency.nvim",
-			-- Project manager
-			"ahmedkhalf/project.nvim",
+		},
+		keys = {
+			{ "<leader>fr", require("telescope.builtin").live_grep, desc = "Live grep"},
+			{ "<leader>fg", require("telescope.builtin").find_files, desc = "Find files" },
+			{ "<leader>fr", "<cmd>Telescope frecency<CR>", desc = "Frecency"}
 		},
 		config = function()
-			-- Telescope keybindings
-			local builtin = require("telescope.builtin")
-
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
-			vim.keymap.set("n", "<leader>fr", ":Telescope frecency<CR>", { desc = "Telescope frecency" })
-
-			-- Load project_nvim
-			require("project_nvim").setup({})
-			require("telescope").load_extension("projects")
-
 			-- Load frecency
 			require("telescope").load_extension("frecency")
 		end,
@@ -146,6 +140,7 @@ return {
 	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
+		lazy = true,
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",
@@ -164,10 +159,12 @@ return {
 	-- Mason, for managing 3rd party tools (LSP, DAP, linters, formatters)
 	{
 		"williamboman/mason.nvim",
+		lazy = true,
 		opts = {},
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
+		lazy = true,
 		dependencies = "williamboman/mason-lspconfig.nvim",
 	},
 	-- Semantic syntax highlighting and more
@@ -205,11 +202,10 @@ return {
 			},
 		},
 	},
-	-- GitHub Copilot
-	{ "zbirenbaum/copilot.lua" },
 	-- Better terminal
 	{
 		"akinsho/toggleterm.nvim",
+		lazy = true,
 		version = "*",
 	},
 	-- Dashboard

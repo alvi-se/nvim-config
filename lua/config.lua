@@ -3,7 +3,7 @@ vim.opt.scrolloff = 10
 vim.opt.guifont = "JetBrainsMono_Nerd_Font:h11"
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.colorcolumn = 80
+vim.opt.colorcolumn = "80"
 
 -- Map leader and localleader
 vim.g.mapleader = " "
