@@ -1,3 +1,4 @@
+local keymap = require("vim.keymap")
 return {
 	{
 		"scottmckendry/cyberdream.nvim",
@@ -44,7 +45,62 @@ return {
 	},
 	{ "vim-airline/vim-airline-themes" },
 	-- Debugger
-	{ "mfussenegger/nvim-dap" },
+	{
+		"mfussenegger/nvim-dap",
+		lazy = true,
+		keys = {
+			{
+				"<leader>db",
+				function()
+					require("dap").toggle_breakpoint()
+				end,
+				desc = "Toggle Breakpoint",
+			},
+			{
+				"<leader>dc",
+				function()
+					require("dap").continue()
+				end,
+				desc = "Continue",
+			},
+			{
+				"<leader>dC",
+				function()
+					require("dap").run_to_cursor()
+				end,
+				desc = "Run to Cursor",
+			},
+			{
+				"<leader>ds",
+				function()
+					require("dap").step_over()
+				end
+			},
+			{
+				"<leader>dS",
+				function()
+					require("dap").step_into()
+				end
+			},
+			{
+				"<leader>dT",
+				function()
+					require("dap").terminate()
+				end,
+				desc = "Terminate",
+			},
+		},
+	},
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			"williamboman/mason.nvim",
+		},
+	},
+	{
+		"theHamsta/nvim-dap-virtual-text",
+	},
 	-- { 'airblade/vim-gitgutter' },
 	-- Git signs in editor
 	{ "lewis6991/gitsigns.nvim", opts = {} },

@@ -25,7 +25,7 @@ local lazygit = Terminal:new({
 	direction = "float",
 })
 
-vim.keymap.set("n", "<leader>g", function()
+vim.keymap.set("n", "<leader>G", function()
 	lazygit:toggle()
 end, { silent = true })
 
@@ -35,7 +35,7 @@ local btop = Terminal:new({
 	direction = "float",
 })
 
-vim.keymap.set("n", "<leader>b", function()
+vim.keymap.set("n", "<leader>B", function()
 	btop:toggle()
 end, { silent = true })
 
@@ -46,6 +46,6 @@ local lazydocker = Terminal:new({
 	direction = "float",
 })
 
-vim.keymap.set("n", "<leader>d", function()
+vim.keymap.set("n", "<leader>D", function()
 	lazydocker:toggle()
 end, { silent = true })
