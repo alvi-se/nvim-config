@@ -131,7 +131,21 @@ return {
 	},
 	-- Discord rich presence
 	{ "andweeb/presence.nvim", opts = {} },
-	{ "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
+	{
+		"akinsho/bufferline.nvim",
+		version = "*",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		init = function()
+				local bufferline = require("bufferline")
+				-- Set Alt+x keybinding to view tab x
+				for i = 0, 9 do
+					vim.keymap.set("n", "<M-" .. i ..">", function()
+						vim.cmd("BufferLineGoToBuffer " .. i)
+						bufferline.go_to(i)
+					end, { silent = true })
+				end
+		end
+	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		dependencies = {
