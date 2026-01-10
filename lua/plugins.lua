@@ -9,6 +9,7 @@ return {
 		end,
 	},
 	{ "tpope/vim-surround" },
+	{ "tpope/vim-fugitive" },
 	-- Auto close pairs
 	{
 		"windwp/nvim-autopairs",
@@ -101,20 +102,24 @@ return {
 	-- File search
 	{
 		"nvim-telescope/telescope.nvim",
-		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-frecency.nvim",
 		},
 		keys = {
-			{ "<leader>fr", require("telescope.builtin").live_grep, desc = "Live grep"},
-			{ "<leader>fg", require("telescope.builtin").find_files, desc = "Find files" },
-			{ "<leader>fr", "<cmd>Telescope frecency<CR>", desc = "Frecency"}
+			{ "<leader>fg", require("telescope.builtin").live_grep, desc = "Live grep" },
+			{ "<leader>ff", require("telescope.builtin").find_files, desc = "Find files" },
+			{ "<leader>fr", "<CMD>Telescope frecency<CR>", desc = "Frecency" },
 		},
-		config = function()
+		init = function()
 			-- Load frecency
 			require("telescope").load_extension("frecency")
 		end,
+	},
+	{
+		"nvim-telescope/telescope-frecency.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+		},
 	},
 	-- Discord rich presence
 	{ "andweeb/presence.nvim", opts = {} },
@@ -148,7 +153,7 @@ return {
 		keys = {
 			{
 				"<C-n>",
-				"<Cmd>Neotree toggle<CR>",
+				"<Cmd>Neotree toggle reveal<CR>",
 				desc = "Toggle Neo-tree",
 			},
 		},
@@ -216,5 +221,34 @@ return {
 		end,
 	},
 	-- Helm filetype detection for the LSP
-	{ "qvalentin/helm-ls.nvim", ft = "helm" },
+	{ "qvalentin/helm-ls.nvim", ft = "helm", lazy = true },
+	{
+		"folke/trouble.nvim",
+		opts = {},
+		keys = {
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+		},
+	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
+	},
 }

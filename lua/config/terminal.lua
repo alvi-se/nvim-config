@@ -1,5 +1,5 @@
 require("toggleterm").setup({
-	open_mapping = [[<Leader>t]],
+	open_mapping = "<Leader>t",
 	insert_mappings = false,
 	terminal_mappings = false,
 	shade_terminals = false,
@@ -25,9 +25,13 @@ local lazygit = Terminal:new({
 	direction = "float",
 })
 
-vim.keymap.set("n", "<leader>G", function()
-	lazygit:toggle()
-end, { silent = true })
+vim.keymap.set("n", "<leader>G", function ()
+		lazygit:toggle()
+	end,
+	{
+		silent = true,
+		desc = "Open Lazygit in floating terminal"
+	})
 
 local btop = Terminal:new({
 	cmd = "btop",
@@ -37,7 +41,11 @@ local btop = Terminal:new({
 
 vim.keymap.set("n", "<leader>B", function()
 	btop:toggle()
-end, { silent = true })
+end,
+	{
+		silent = true,
+		desc = "Open btop in floating terminal"
+	})
 
 local lazydocker = Terminal:new({
 	cmd = "lazydocker",
@@ -46,6 +54,12 @@ local lazydocker = Terminal:new({
 	direction = "float",
 })
 
-vim.keymap.set("n", "<leader>D", function()
-	lazydocker:toggle()
-end, { silent = true })
+
+vim.keymap.set("n", "<leader>D", function ()
+		lazydocker:toggle()
+	end,
+	{
+		silent = true,
+		desc = "Open Lazydocker in floating terminal"
+	})
+
