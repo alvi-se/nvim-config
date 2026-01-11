@@ -1,9 +1,17 @@
+-- Show line numbers
 vim.opt.number = true
 vim.opt.scrolloff = 10
 vim.opt.guifont = "JetBrainsMono_Nerd_Font:h11"
+-- Size of a tab character
 vim.opt.tabstop = 4
+-- When expandtab=true, number of spaces that are written
+-- when tab is pressed
 vim.opt.shiftwidth = 4
+-- Highlight 80th column
 vim.opt.colorcolumn = "80"
+
+-- Add border to floating windows
+vim.o.winborder = "rounded"
 
 -- Map leader and localleader
 vim.g.mapleader = " "
