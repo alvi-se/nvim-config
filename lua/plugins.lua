@@ -176,18 +176,6 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-
-		config = function()
-			local configs = require("nvim-treesitter.configs")
-
-			configs.setup({
-				ensure_installed = { "c", "lua", "typescript", "rust", "go", "tsx", "dockerfile" },
-				sync_install = false,
-				highlight = { enable = true },
-				indent = { enable = true },
-				auto_install = true,
-			})
-		end,
 	},
 	-- Code completion
 	{
@@ -228,7 +216,7 @@ return {
 		keys = {
 			{
 				"<leader>xx",
-				"<cmd>Trouble diagnostics toggle focus=false win.position=right<cr>",
+				"<cmd>Trouble diagnostics toggle focus=false win.position=bottom<cr>",
 				desc = "LSP Definitions / references / ... (Trouble)",
 			},
 		},
