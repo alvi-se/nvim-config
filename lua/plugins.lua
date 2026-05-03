@@ -1,242 +1,139 @@
-return {
-	{
-		"scottmckendry/cyberdream.nvim",
-		lazy = false,
-		priority = 1000,
-		init = function()
-			-- Load the colorscheme here
-			vim.cmd("colorscheme cyberdream")
-		end,
-	},
-	{ "tpope/vim-surround" },
-	{ "tpope/vim-fugitive" },
+vim.pack.add({
+	-- Colorscheme
+	"https://github.com/scottmckendry/cyberdream.nvim",
+	"https://github.com/tpope/vim-surround",
+	"https://github.com/tpope/vim-fugitive",
 	-- Auto close pairs
-	{
-		"windwp/nvim-autopairs",
-		opts = {
-			check_ts = true,
-		},
-	},
-	{ "windwp/nvim-ts-autotag", opts = {} },
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			sections = {
-				lualine_x = {
-					"encoding",
-					function()
-						if vim.opt.expandtab:get() then
-							return "󱁐 " .. vim.opt.shiftwidth:get() .. " spaces"
-						else
-							return " tabs"
-						end
-					end,
-					"fileformat",
-					"filetype",
-				},
-			},
-		},
-	},
+	"https://github.com/windwp/nvim-autopairs",
+	-- Use Treesitter to close HTML tags
+	"https://github.com/windwp/nvim-ts-autotag",
+	-- Dependency for lualine.nvim and bufferline.nvim
+	"https://github.com/nvim-tree/nvim-web-devicons",
+	"https://github.com/nvim-lualine/lualine.nvim",
+	-- External tool manager
+	"https://github.com/williamboman/mason.nvim",
 	-- Debugger
-	{
-		"mfussenegger/nvim-dap",
-		lazy = true,
-		keys = {
-			{
-				"<leader>db",
-				function()
-					require("dap").toggle_breakpoint()
-				end,
-				desc = "Toggle Breakpoint",
-			},
-			{
-				"<leader>dc",
-				function()
-					require("dap").continue()
-				end,
-				desc = "Continue",
-			},
-			{
-				"<leader>dC",
-				function()
-					require("dap").run_to_cursor()
-				end,
-				desc = "Run to Cursor",
-			},
-			{
-				"<leader>ds",
-				function()
-					require("dap").step_over()
-				end,
-			},
-			{
-				"<leader>dS",
-				function()
-					require("dap").step_into()
-				end,
-			},
-			{
-				"<leader>dT",
-				function()
-					require("dap").terminate()
-				end,
-				desc = "Terminate",
-			},
-		},
-	},
-	{
-		"jay-babu/mason-nvim-dap.nvim",
-		lazy = true,
-		dependencies = {
-			"mfussenegger/nvim-dap",
-			"williamboman/mason.nvim",
-		},
-	},
-	{
-		"theHamsta/nvim-dap-virtual-text",
-		lazy = true,
-	},
+	"https://github.com/mfussenegger/nvim-dap",
+	-- Bridges the gap between Mason and nvim-dap
+	"https://github.com/jay-babu/mason-nvim-dap.nvim",
+	"https://github.com/theHamsta/nvim-dap-virtual-text",
 	-- Git signs in editor
-	{ "lewis6991/gitsigns.nvim", opts = {} },
-	-- File search
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		keys = {
-			{ "<leader>fg", require("telescope.builtin").live_grep, desc = "Live grep" },
-			{ "<leader>ff", require("telescope.builtin").find_files, desc = "Find files" },
-			{ "<leader>fr", "<CMD>Telescope frecency<CR>", desc = "Frecency" },
-		},
-		init = function()
-			-- Load frecency
-			require("telescope").load_extension("frecency")
-		end,
-	},
-	{
-		"nvim-telescope/telescope-frecency.nvim",
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
-		},
-	},
+	"https://github.com/lewis6991/gitsigns.nvim",
+	-- Dependency of telescope.nvim and neo-tree.nvim
+	"https://github.com/nvim-lua/plenary.nvim",
+	-- File search and other stuff
+	"https://github.com/nvim-telescope/telescope.nvim",
+	-- Find frequent and recent files using Telescope
+	"https://github.com/nvim-telescope/telescope-frecency.nvim",
 	-- Discord rich presence
-	{ "andweeb/presence.nvim", opts = {} },
-	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		opts = {
-			options = {
-				diagnostics = "nvim_lsp",
-			},
-		},
-		init = function()
-			local bufferline = require("bufferline")
-			-- Set Alt+x keybinding to view tab x
-			for i = 0, 9 do
-				vim.keymap.set("n", "<M-" .. i .. ">", function()
-					vim.cmd("BufferLineGoToBuffer " .. i)
-					bufferline.go_to(i)
-				end, { silent = true })
-			end
-		end,
-	},
-	{
-		"nvim-neo-tree/neo-tree.nvim",
-		lazy = true,
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-		},
-		keys = {
-			{
-				"<C-n>",
-				"<Cmd>Neotree toggle reveal<CR>",
-				desc = "Toggle Neo-tree",
-			},
-		},
-	},
-	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+	"https://github.com/andweeb/presence.nvim",
+	-- Tab-like buffers on top of editor
+	"https://github.com/akinsho/bufferline.nvim",
+	-- Dependency of neo-tree.nvim
+	"https://github.com/MunifTanjim/nui.nvim",
+	-- File manager
+	"https://github.com/nvim-neo-tree/neo-tree.nvim",
+	"https://github.com/lukas-reineke/indent-blankline.nvim",
 	-- Easily configure LSP
-	{ "neovim/nvim-lspconfig" },
-	-- Mason, for managing 3rd party tools (LSP, DAP, linters, formatters)
-	{
-		"williamboman/mason.nvim",
-		lazy = true,
-		opts = {},
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		lazy = true,
-		dependencies = "williamboman/mason-lspconfig.nvim",
-	},
+	"https://github.com/neovim/nvim-lspconfig",
+	-- Bridges the gap between lspconfig and Mason
+	"https://github.com/williamboman/mason-lspconfig.nvim",
 	-- Semantic syntax highlighting and more
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-	},
+	"https://github.com/nvim-treesitter/nvim-treesitter",
 	-- Code completion
 	{
-		"saghen/blink.cmp",
-		version = "1.*",
-		-- optional: provides snippets for the snippet source
-		dependencies = { "rafamadriz/friendly-snippets" },
-	},
-	{
-		"folke/lazydev.nvim",
-		ft = "lua", -- only load on lua files
-		opts = {
-			library = {
-				-- See the configuration section for more details
-				-- Load luvit types when the `vim.uv` word is found
-				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-			},
-		},
+		src = "https://github.com/saghen/blink.cmp",
+		version = vim.version.range('1.x'),
 	},
 	-- Better terminal
-	{
-		"akinsho/toggleterm.nvim",
-		lazy = true,
-		version = "*",
-	},
+	"https://github.com/akinsho/toggleterm.nvim",
 	-- Dashboard
-	{
-		"goolord/alpha-nvim",
-		config = function()
-			require("alpha").setup(require("alpha.themes.dashboard").config)
-		end,
-	},
-	-- Helm filetype detection for the LSP
-	{ "qvalentin/helm-ls.nvim", ft = "helm", lazy = true },
-	{
-		"folke/trouble.nvim",
-		opts = {},
-		keys = {
-			{
-				"<leader>xx",
-				"<cmd>Trouble diagnostics toggle focus=false win.position=bottom<cr>",
-				desc = "LSP Definitions / references / ... (Trouble)",
-			},
+	"https://github.com/goolord/alpha-nvim",
+	"https://github.com/folke/trouble.nvim",
+	"https://github.com/folke/which-key.nvim",
+})
+
+-------------------------------------------------
+
+require("gitsigns").setup()
+require("presence").setup()
+require("ibl").setup()
+require("trouble").setup()
+require("which-key").setup()
+require("nvim-ts-autotag").setup()
+require("mason").setup()
+
+
+require("plugins.lsp")
+require("plugins.terminal")
+require("plugins.dap")
+require("plugins.telescope")
+
+-------------------------------------------------
+
+-- Colorscheme
+vim.cmd("colorscheme cyberdream")
+
+-------------------------------------------------
+
+-- Autopairs
+require("nvim-autopairs").setup({
+	check_ts = true,
+})
+
+-------------------------------------------------
+
+-- Lualine
+require("lualine").setup({
+	sections = {
+		lualine_x = {
+			"encoding",
+			function()
+				if vim.opt.expandtab:get() then
+					return "󱁐 " .. vim.opt.shiftwidth:get() .. " spaces"
+				else
+					return " tabs"
+				end
+			end,
+			"fileformat",
+			"filetype",
 		},
 	},
-	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
-		keys = {
-			{
-				"<leader>?",
-				function()
-					require("which-key").show({ global = false })
-				end,
-				desc = "Buffer Local Keymaps (which-key)",
-			},
-		},
+})
+
+-------------------------------------------------
+
+local bufferline = require("bufferline")
+-- Set Alt+x keybinding to view tab x
+for i = 0, 9 do
+	vim.keymap.set("n", "<M-" .. i .. ">", function()
+		vim.cmd("BufferLineGoToBuffer " .. i)
+		bufferline.go_to(i)
+	end, { silent = true })
+end
+
+bufferline.setup({
+	options = {
+		diagnostics = "nvim_lsp",
 	},
-}
+})
+
+-------------------------------------------------
+
+-- Dashboard
+require("alpha").setup(require("alpha.themes.dashboard").config)
+
+-------------------------------------------------
+
+-- Toggle Neo-tree
+vim.keymap.set('n', '<C-n>', '<CMD>Neotree toggle reveal<CR>', { desc = "Toggle Neo-tree" })
+
+-------------------------------------------------
+
+-- Toggle Trouble (diagnostics)
+vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle focus=false win.position=bottom<cr>', { desc = "LSP Definitions / references / ... (Trouble)" })
+
+-------------------------------------------------
+
+-- Buffer Local Keymaps (which-key)
+vim.keymap.set('n', '<leader>?', function() require('which-key').show({ global = false }) end, { desc = "Buffer Local Keymaps (which-key)" })
